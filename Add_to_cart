@@ -2,6 +2,8 @@
 MVP версия автоматизированного тестирования функции добавления товаров в корзину в интернет-магазине. 
 Это не окончательная версия, планируется последующая разработка
 Исходная страница - https://kolobokshop.ru/?orderby=price&paged=1&product_cat=snowflow
+Код выполняется на python + selenium, pytest, time, re
+
 '''
 from time import sleep
 import pytest
@@ -12,7 +14,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 import re
-import time
 
 driver = webdriver.Chrome()
 driver.get("https://kolobokshop.ru/?orderby=price&paged=1&product_cat=snowflow")
