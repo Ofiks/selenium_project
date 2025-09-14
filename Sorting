@@ -1,0 +1,81 @@
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.keys import Keys
+from time import sleep
+import pytest
+import re
+
+driver = webdriver.Chrome()
+driver.get("https://kolobokshop.ru/?orderby=price&paged=1&product_cat=snowflow")
+#получение цен по тегу
+price = driver.find_elements(By.TAG_NAME, 'bdi')
+
+#отсечение символа рубля и копеек
+lst = [x.text[0:-5] for x in price]
+lst1 = []
+for ed in lst:
+    if ed != '':
+        lst1.append(ed)
+
+#убирание пробела и перевод строк в числа
+mp = list(map(lambda x: int(re.sub(' ', '', x)), lst1))
+print(mp)
+srt = sorted(mp)
+print(srt)
+if mp == srt:
+    print('числа расположены по возрастанию')
+else:
+    print('ошибка')
+el = driver.find_element(By.CLASS_NAME, 'orderby')
+el.click()
+el = driver.find_element(By.XPATH, "//*[text()='По возрастанию цены']")
+el.click()
+
+
+#получение цен по тегу
+goi = driver.find_elements(By.TAG_NAME, 'bdi')
+
+#отсечение символа рубля и копеек
+lst = [x.text[0:-5] for x in goi]
+lst1 = []
+for ed in lst:
+    if ed != '':
+        lst1.append(ed)
+
+#убирание пробела и перевод строк в числа
+mp = list(map(lambda x: int(re.sub(' ', '', x)), lst1))
+print(mp)
+srt = sorted(mp)
+print(srt)
+
+def test_vozrastanie():
+    assert mp == srt
+#установка цены по убыванию в выпадающем списке
+
+el = driver.find_element(By.CLASS_NAME, 'orderby')
+el.click()
+el = driver.find_element(By.XPATH, "//*[text()='По убыванию цены']")
+el.click()
+sleep(5)
+
+#получение цен по тегу
+goi = driver.find_elements(By.TAG_NAME, 'bdi')
+
+#отсечение символа рубля и копеек
+lst = [x.text[0:-5] for x in price]
+lst1 = []
+for ed in lst:
+    if ed != '':
+        lst1.append(ed)
+
+#убирание пробела и перевод строк в числа
+mp = list(map(lambda x: int(re.sub(' ', '', x)), lst1))
+print(mp)
+srt = sorted(mp, reverse=True)
+print(srt)
+
+def test_ubivanie():
+    assert mp == srt
