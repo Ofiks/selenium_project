@@ -1,6 +1,7 @@
 '''
 MVP версия автоматизированного тестирования функции добавления товаров в корзину в интернет-магазине. 
 Это не окончательная версия, планируется последующая разработка
+Исходная страница - https://kolobokshop.ru/?orderby=price&paged=1&product_cat=snowflow
 '''
 from time import sleep
 import pytest
