@@ -1,0 +1,48 @@
+from time import sleep
+import pytest
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.keys import Keys
+import re
+import time
+
+driver = webdriver.Chrome()
+driver.get("https://kolobokshop.ru/?orderby=price&paged=1&product_cat=snowflow")
+
+link = driver.find_elements(By.CLASS_NAME, 'add_to_cart_button')
+
+count = driver.find_element(By.CLASS_NAME, 'wd-tools-count')
+
+for ed in range(len(link)):
+    link[ed].click()
+    sleep(5)
+    link[ed].send_keys(Keys.ESCAPE)
+    link[ed].send_keys(Keys.ARROW_DOWN)
+    link[ed].send_keys(Keys.ARROW_DOWN)
+    link[ed].send_keys(Keys.ARROW_DOWN)
+    link[ed].send_keys(Keys.ARROW_DOWN)
+    link[ed].send_keys(Keys.ARROW_DOWN)
+    sleep(5)
+
+count_icon = driver.find_element(By.CLASS_NAME, 'wd-cart-number')
+
+html = driver.find_element(By.TAG_NAME, 'html')
+for ed in range(50):
+    html.send_keys(Keys.ARROW_UP)
+
+count_icon_int = int(count_icon.text)
+pages = len(link)
+
+sleep(5)
+shop_cart = driver.find_element(By.XPATH, '/html/body/div[1]/header/div/div[2]/div/div/div[3]/div[5]/a').click()
+sleep(5)
+
+butt = driver.find_element(By.CLASS_NAME, 'btn-cart').click()
+
+count_in_cart = driver.find_elements(By.CLASS_NAME, 'woocommerce-cart-form__cart-item')
+
+def test_butt():
+    assert count_icon_int == len(count_in_cart) == pages
