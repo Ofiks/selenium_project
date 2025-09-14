@@ -1,3 +1,6 @@
+'''
+MVP версия проверки механизма сортировки в интернет-магазине по возрастанию и убыванию. 
+'''
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
@@ -51,7 +54,7 @@ print(mp)
 srt = sorted(mp)
 print(srt)
 
-def test_vozrastanie():
+def test_up():
     assert mp == srt
 #установка цены по убыванию в выпадающем списке
 
@@ -77,5 +80,5 @@ print(mp)
 srt = sorted(mp, reverse=True)
 print(srt)
 
-def test_ubivanie():
+def test_down():
     assert mp == srt
