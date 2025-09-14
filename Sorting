@@ -1,5 +1,5 @@
 '''
-MVP версия проверки механизма сортировки в интернет-магазине по возрастанию и убыванию. 
+MVP версия проверки механизма сортировки в интернет-магазине по возрастанию и по убыванию. 
 '''
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
