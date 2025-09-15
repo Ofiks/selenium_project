@@ -5,6 +5,8 @@ MVP версия автоматизированного тестирования
 Код выполняется на python + selenium, pytest, time, re
 Посмотреть реализацию - https://drive.google.com/file/d/1fLKBDt5cNSLCdFNPuDDmvo8fn8wmE5kP/view?usp=sharing
 '''
+
+
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
