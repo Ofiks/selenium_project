@@ -3,7 +3,7 @@ MVP версия автоматизированного тестирования
 Это не окончательная версия, планируется последующая разработка
 Исходная страница - https://kolobokshop.ru/?orderby=price&paged=1&product_cat=snowflow
 Код выполняется на python + selenium, pytest, time, re
-
+Посмотреть реализацию - https://drive.google.com/file/d/1fLKBDt5cNSLCdFNPuDDmvo8fn8wmE5kP/view?usp=sharing
 '''
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
