@@ -1,18 +1,17 @@
 '''
-MVP версия проверки механизма сортировки в интернет-магазине по возрастанию и по убыванию. 
+MVP версия автоматизированного тестирования функции добавления товаров в корзину в интернет-магазине.
 Это не окончательная версия, планируется последующая разработка
 Исходная страница - https://kolobokshop.ru/?orderby=price&paged=1&product_cat=snowflow
-Код выполняется на python + selenium, pytest, time
+Код выполняется на python + selenium, pytest, time, re
+
 '''
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.keys import Keys
-from time import sleep
-import pytest
 import re
+from time import sleep
 
 driver = webdriver.Chrome()
 driver.get("https://kolobokshop.ru/?orderby=price&paged=1&product_cat=snowflow")
@@ -32,20 +31,21 @@ print(mp)
 srt = sorted(mp)
 print(srt)
 if mp == srt:
-    print('числа расположены по возрастанию')
+    print('числа расположены по возрастанию ☺')
 else:
     print('ошибка')
+
 el = driver.find_element(By.CLASS_NAME, 'orderby')
 el.click()
 el = driver.find_element(By.XPATH, "//*[text()='По возрастанию цены']")
 el.click()
-
+sleep(10)
 
 #получение цен по тегу
-goi = driver.find_elements(By.TAG_NAME, 'bdi')
+price = driver.find_elements(By.TAG_NAME, 'bdi')
 
 #отсечение символа рубля и копеек
-lst = [x.text[0:-5] for x in goi]
+lst = [x.text[0:-5] for x in price]
 lst1 = []
 for ed in lst:
     if ed != '':
@@ -59,6 +59,8 @@ print(srt)
 
 def test_up():
     assert mp == srt
+
+
 #установка цены по убыванию в выпадающем списке
 
 el = driver.find_element(By.CLASS_NAME, 'orderby')
@@ -68,7 +70,7 @@ el.click()
 sleep(5)
 
 #получение цен по тегу
-goi = driver.find_elements(By.TAG_NAME, 'bdi')
+price = driver.find_elements(By.TAG_NAME, 'bdi')
 
 #отсечение символа рубля и копеек
 lst = [x.text[0:-5] for x in price]
